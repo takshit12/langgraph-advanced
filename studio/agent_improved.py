@@ -103,7 +103,13 @@ def question_node(state: ChatState) -> dict:
     api_key = os.getenv("OPENROUTER_API_KEY")
     if api_key:
         try:
-            from openai import OpenAI
+            # Prefer Langfuse's drop-in so the model call is traced as a
+            # GENERATION (what LLM-as-a-judge evaluators score); fall back to the
+            # plain SDK in the lean container where langfuse isn't installed.
+            try:
+                from langfuse.openai import OpenAI
+            except ImportError:
+                from openai import OpenAI
 
             client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
             completion = client.chat.completions.create(
