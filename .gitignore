@@ -15,9 +15,6 @@ basics/
 # --- Local tooling cache of vendored upstream repos (not part of this project) ---
 opensrc/
 
-# --- Appeared in the working tree; not part of today's session (kept out pending review) ---
-deep-agents-walkthrough/
-
 # --- Python ---
 __pycache__/
 *.py[cod]

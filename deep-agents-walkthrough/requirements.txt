@@ -1,0 +1,16 @@
+# Full deps to run the WHOLE session locally: serve + observe + evaluate.
+# For the lean container image, see requirements-api.txt (no langfuse).
+#
+# NOTE: langgraph 1.x and langfuse need Python 3.11+.  Check with:  python --version
+# The macOS system `python3` is often 3.9 — build your venv with python3.11+.
+
+langgraph>=1.0,<2.0
+openai>=1.40
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-dotenv>=1.0
+langfuse>=3
+# Required by langfuse's CallbackHandler (the `langfuse.langchain` import used in
+# trace_demo.py / langfuse_experiment.py). langgraph 1.x no longer pulls langchain
+# in transitively, so list it explicitly — without it those two scripts error.
+langchain>=0.3
