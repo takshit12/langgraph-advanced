@@ -1,0 +1,14 @@
+{"input": {"message": "Hello there!"}, "expected_output": {"intent": "greeting", "sentiment": "neutral"}, "metadata": {"id": "g01", "note": "plain greeting"}}
+{"input": {"message": "Hey, thanks for the quick response!"}, "expected_output": {"intent": "greeting", "sentiment": "positive"}, "metadata": {"id": "g02", "note": "greeting + thanks"}}
+{"input": {"message": "My app is broken and I want a refund."}, "expected_output": {"intent": "complaint", "sentiment": "negative"}, "metadata": {"id": "g03", "note": "canonical complaint, two keywords"}}
+{"input": {"message": "Goodbye, and thanks for all the help!"}, "expected_output": {"intent": "farewell", "sentiment": "positive"}, "metadata": {"id": "g04", "note": "farewell + thanks"}}
+{"input": {"message": "What is this, exactly?"}, "expected_output": {"intent": "question", "sentiment": "neutral"}, "metadata": {"id": "g05", "note": "question containing the word 'this'"}}
+{"input": {"message": "Which plan is the best for a small team?"}, "expected_output": {"intent": "question", "sentiment": "neutral"}, "metadata": {"id": "g06", "note": "pricing question containing 'which'"}}
+{"input": {"message": "Can you ship my order faster?"}, "expected_output": {"intent": "question", "sentiment": "neutral"}, "metadata": {"id": "g07", "note": "shipping question containing 'ship'"}}
+{"input": {"message": "Hi, my app is completely broken and unusable."}, "expected_output": {"intent": "complaint", "sentiment": "negative"}, "metadata": {"id": "g08", "note": "complaint that opens with 'Hi'"}}
+{"input": {"message": "My order never arrived and I'm absolutely furious."}, "expected_output": {"intent": "complaint", "sentiment": "negative"}, "metadata": {"id": "g09", "note": "angry complaint, none of the canned keywords"}}
+{"input": {"message": "Honestly the worst experience I have ever had."}, "expected_output": {"intent": "complaint", "sentiment": "negative"}, "metadata": {"id": "g10", "note": "strong complaint using 'worst'"}}
+{"input": {"message": "I do not hate it, it works fine now."}, "expected_output": {"intent": "question", "sentiment": "neutral"}, "metadata": {"id": "g11", "note": "negated 'hate' — not actually a complaint"}}
+{"input": {"message": "What is LangGraph and how does it work?"}, "expected_output": {"intent": "question", "sentiment": "neutral"}, "metadata": {"id": "g12", "note": "canonical question"}}
+{"input": {"message": "This product is awesome, I love it!"}, "expected_output": {"intent": "question", "sentiment": "positive"}, "metadata": {"id": "g13", "note": "praise containing the word 'this'"}}
+{"input": {"message": "Bye for now, see you next week!"}, "expected_output": {"intent": "farewell", "sentiment": "neutral"}, "metadata": {"id": "g14", "note": "plain farewell"}}

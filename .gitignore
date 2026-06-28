@@ -1,0 +1,32 @@
+# --- Secrets (never commit real keys) ---
+.env
+*.env
+!.env.example
+
+# --- Facilitator notes (kept out of the public repo on purpose) ---
+SESSION_PLAN.md
+CHEATSHEET.md
+
+# --- Last session's material (lives in its own repo) ---
+basics/
+
+# --- Local tooling cache of vendored upstream repos (not part of this project) ---
+opensrc/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- LangGraph dev server scratch ---
+.langgraph_api/
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/

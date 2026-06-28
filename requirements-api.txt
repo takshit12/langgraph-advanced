@@ -1,0 +1,8 @@
+# Minimal deps to SERVE the agent in a container. Deliberately lean (no Studio
+# CLI, no streamlit, no pandas) so the image builds fast and stays small.
+# agent.py only needs langgraph + (lazily) the openai SDK for the question branch.
+langgraph>=1.0,<2.0
+openai>=1.40
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-dotenv>=1.0

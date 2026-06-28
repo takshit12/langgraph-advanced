@@ -1,0 +1,11 @@
+# Full deps to run the WHOLE session locally: serve + observe + evaluate.
+# For the lean container image, see requirements-api.txt (no langfuse).
+#
+# NOTE: langfuse v3 needs Python 3.11+.  Check with:  python --version
+
+langgraph>=1.0,<2.0
+openai>=1.40
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-dotenv>=1.0
+langfuse>=3

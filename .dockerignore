@@ -1,0 +1,39 @@
+# Keep the runtime image lean and fast to build: only the code needed to SERVE
+# the agent (app.py + agent.py + requirements-api.txt) belongs inside. Everything
+# below is dev-time, eval-time, or secret — none of it ships in the container.
+
+# Secrets (passed at runtime via `docker run --env-file .env`, never baked in)
+.env
+*.env
+
+# Version control / CI
+.git
+.gitignore
+
+# Python caches and virtualenvs
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# LangGraph dev server scratch
+.langgraph_api/
+
+# Docs and facilitator notes
+*.md
+
+# Evaluation harness (not needed to serve the agent)
+evaluate.py
+langfuse_experiment.py
+trace_demo.py
+golden_dataset.jsonl
+
+# Last session's material
+basics/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
