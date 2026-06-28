@@ -17,10 +17,15 @@ cd langgraph-advanced/studio
 ```
 
 ```bash
-# 2 · Virtual environment + dependencies
-python3 -m venv .venv && source .venv/bin/activate
-#   Windows (PowerShell):  python -m venv .venv ; .\.venv\Scripts\Activate.ps1
+# 2 · Virtual environment + dependencies — MUST be Python 3.11+
+python3 --version                 # if this is < 3.11, use python3.11 (or python3.12) below
+python3.11 -m venv .venv && source .venv/bin/activate
+#   Windows (PowerShell):  py -3.11 -m venv .venv ; .\.venv\Scripts\Activate.ps1
+python --version                  # confirm the venv is 3.11+
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+#   Why 3.11? langgraph 1.x and langfuse only ship for 3.11+. On the macOS system
+#   python3 (often 3.9) pip can't find langgraph 1.0 and the install fails.
 ```
 
 ```bash

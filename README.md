@@ -121,16 +121,20 @@ cd langgraph-advanced/studio
 
 Create and activate a virtual environment:
 
+Use a **Python 3.11+** interpreter — the macOS system `python3` is often 3.9,
+which can't install langgraph 1.x. Check with `python3 --version` first.
+
 **macOS / Linux:**
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
+python3.11 -m venv .venv && source .venv/bin/activate   # or any python3.11+
+python --version                                        # confirm 3.11+
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-python -m venv .venv
+py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
