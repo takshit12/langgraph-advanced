@@ -10,11 +10,15 @@
 #   uvicorn app:app --reload --port 8000
 # Then open http://127.0.0.1:8000/docs for an auto-generated Swagger UI.
 
+import os
 from typing import Optional
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
+
+load_dotenv()  # pull LANGFUSE_* from .env so the deployed API can trace too
 
 # Import the SAME graph students built last session. No changes to agent.py.
 from agent import graph
@@ -24,6 +28,23 @@ app = FastAPI(
     description="A compiled LangGraph graph served over HTTP. No vendor runtime required.",
     version="1.0.0",
 )
+
+
+# --- Optional Langfuse tracing -----------------------------------------------
+# Observability is still ADDITIVE here: if Langfuse keys are present we attach a
+# callback handler so every API call becomes a trace; if not (or langfuse isn't
+# installed, e.g. in the lean container), we run untraced. Lazy import keeps the
+# slim requirements-api.txt image working without langfuse.
+def _config(run_name: str) -> dict:
+    cfg = {"run_name": run_name}
+    if os.getenv("LANGFUSE_PUBLIC_KEY") and os.getenv("LANGFUSE_SECRET_KEY"):
+        try:
+            from langfuse.langchain import CallbackHandler
+
+            cfg["callbacks"] = [CallbackHandler()]
+        except Exception:
+            pass  # langfuse not installed in this image — serve without tracing
+    return cfg
 
 
 # --- Request / response schemas (FastAPI validates these for you) -----------
@@ -49,7 +70,7 @@ def health():
 def chat(req: ChatRequest):
     # graph.invoke runs START -> classify -> (router) -> handler -> finalize -> END
     # and returns the fully-merged state dict.
-    result = graph.invoke({"message": req.message})
+    result = graph.invoke({"message": req.message}, config=_config("api:/chat"))
     return ChatResponse(
         intent=result.get("intent"),
         sentiment=result.get("sentiment"),
@@ -66,7 +87,7 @@ def chat_stream(req: ChatRequest):
     import json
 
     def event_generator():
-        for chunk in graph.stream({"message": req.message}):
+        for chunk in graph.stream({"message": req.message}, config=_config("api:/chat/stream")):
             yield f"data: {json.dumps(chunk)}\n\n"
         yield "data: [DONE]\n\n"
 
