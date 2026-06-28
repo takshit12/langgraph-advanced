@@ -15,6 +15,9 @@ basics/
 # --- Local tooling cache of vendored upstream repos (not part of this project) ---
 opensrc/
 
+# --- deep-agents-ui: cloned on demand by deep-agents-walkthrough/setup-ui.sh (not vendored) ---
+deep-agents-walkthrough/deep-agents-ui/
+
 # --- Python ---
 __pycache__/
 *.py[cod]

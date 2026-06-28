@@ -6,10 +6,8 @@ sub-agents, and saves its drafts to a virtual file system — all built on
 [`deepagents`](https://github.com/langchain-ai/deepagents) +
 [LangGraph](https://docs.langchain.com/langgraph-platform).
 
-New to the concepts? Read the theory in
-[`../explainer.md`](../explainer.md) / [`../deep_agents_overview.ipynb`](../deep_agents_overview.ipynb),
-then walk the code with the read-aloud guide in `explainers/4-deep-agents.md` at
-the repo root.
+New to the concepts? Read the theory in [`../explainer.md`](../explainer.md) and
+the notebook [`../deep_agents_overview.ipynb`](../deep_agents_overview.ipynb).
 
 > Verified with `deepagents 0.6.12`, `langchain 1.3`, `langgraph 1.2`, Python 3.13.
 
@@ -94,15 +92,23 @@ the `competitive_analysis_agent` graph, and send a request such as:
 Watch the steps stream: `write_todos` (planning) → `task` → research sub-agents →
 `internet_search` → `write_file` (drafts) → `task` → critique sub-agent → revise.
 
-**Option B — deep-agents-ui (optional richer chat UI).** In a separate terminal:
+**Option B — deep-agents-ui (richer chat UI with live to-do / files / sub-agent
+panels).** With `langgraph dev` running, in a separate terminal run the helper
+(it clones, installs, and launches the UI — requires git + Node 20+):
 
 ```bash
-git clone https://github.com/langchain-ai/deep-agents-ui.git
-cd deep-agents-ui
-printf 'NEXT_PUBLIC_DEPLOYMENT_URL="http://127.0.0.1:2024"\nNEXT_PUBLIC_AGENT_ID=competitive_analysis_agent\n' > .env.local
-npm install
-npm run dev      # open http://localhost:3000
+cd ..            # into deep-agents-walkthrough/
+./setup-ui.sh
 ```
+
+Open <http://localhost:3000> and enter these in the UI's settings dialog (saved in
+your browser after the first time):
+
+| Field | Value |
+|-------|-------|
+| Deployment URL | `http://127.0.0.1:2024` |
+| Assistant ID | `competitive_analysis_agent` |
+| LangSmith API Key | *optional* (auto-filled from `../.env` if set) |
 
 ## 6. What to expect
 
