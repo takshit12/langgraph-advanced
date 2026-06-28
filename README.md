@@ -58,10 +58,16 @@ START → classify → (router) → { greeting | farewell | complaint | question
 **Requirements:** Python **3.11+** (langfuse v3 needs it), and Docker (optional,
 for the container step).
 
+All the code lives in **`studio/`** (it holds `agent.py` and every kit file) —
+run every command below from there.
+
 ```bash
+git clone https://github.com/takshit12/langgraph-advanced.git
+cd langgraph-advanced/studio          # ← all commands run from here
+
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env          # then paste your Langfuse keys into .env
+cp .env.example .env                   # then paste your Langfuse keys into .env
 ```
 
 Your `.env` needs a Langfuse public/secret pair and the **region-matched** host
@@ -189,7 +195,17 @@ Open Langfuse to see the two runs side by side.
 
 ## Project structure
 
-| File | What it is |
+Everything lives in `studio/` — `cd` there to run any command:
+
+```
+langgraph-advanced/
+├── README.md          ← repo overview (this file)
+└── studio/            ← the kit; the langgraph.json app root
+    ├── agent.py       ← run all commands from here
+    └── …
+```
+
+| File (in `studio/`) | What it is |
 |------|------------|
 | `agent.py` | the buggy 4-way classifier (the eval subject) |
 | `agent_improved.py` | the fixed version — same graph, three surgical fixes |
@@ -229,7 +245,7 @@ versus rebuild only the pieces you use.
   check the keys (`pk-lf-…` / `sk-lf-…`), `langfuse>=3`, and Python 3.11+.
 - **Eval numbers don't match the table** → someone edited `agent.py` or the
   dataset. The 43→93 story depends on them being byte-for-byte as shipped.
-- **`ModuleNotFoundError: agent`** → run commands from the repo root, next to
+- **`ModuleNotFoundError: agent`** → run commands from inside `studio/`, next to
   `agent.py`.
 - **Port already in use** → `--port 8001` (uvicorn) / `-p 8001:8000` (docker).
 
