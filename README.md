@@ -276,16 +276,42 @@ Open Langfuse to see the two runs side by side.
 
 ---
 
+## Bonus track — Deep Agents
+
+The `studio/` kit above is a small, deliberately simple agent. For the other end of
+the spectrum — a long-horizon agent that plans, takes notes to a file system, and
+delegates to sub-agents — see [`deep-agents-walkthrough/`](./deep-agents-walkthrough).
+
+It builds a **competitive-analysis deep agent** (name two companies → get a
+researched, executive-ready comparison) on LangChain's
+[`deepagents`](https://github.com/langchain-ai/deepagents), and includes a one-command
+setup for the visual [deep-agents-ui](https://github.com/langchain-ai/deep-agents-ui)
+so you can watch it work live.
+
+```bash
+cd deep-agents-walkthrough/competitive_analysis_agent
+uv sync
+cp ../.env.example ../.env      # add your OpenRouter + Tavily keys
+uv run langgraph dev           # then open Studio, or run ../setup-ui.sh for the UI
+```
+
+Full step-by-step (keys, the UI, the demo prompt) is in
+[`deep-agents-walkthrough/README.md`](./deep-agents-walkthrough/README.md).
+
+---
+
 ## Project structure
 
 Everything lives in `studio/` — `cd` there to run any command:
 
 ```
 langgraph-advanced/
-├── README.md          ← repo overview (this file)
-└── studio/            ← the kit; the langgraph.json app root
-    ├── agent.py       ← run all commands from here
-    └── …
+├── README.md                  ← repo overview (this file)
+├── studio/                    ← the main kit; the langgraph.json app root
+│   ├── agent.py               ← run all commands from here
+│   └── …
+└── deep-agents-walkthrough/   ← bonus: build a deep agent (has its own README)
+    └── competitive_analysis_agent/
 ```
 
 | File (in `studio/`) | What it is |
