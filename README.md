@@ -53,21 +53,96 @@ START → classify → (router) → { greeting | farewell | complaint | question
 
 ---
 
-## Quickstart
+## Prerequisites
 
-**Requirements:** Python **3.11+** (langfuse v3 needs it), and Docker (optional,
-for the container step).
+You need **Python 3.11+** (langfuse v3 requires it) and **git**. **Docker** is
+optional — only the container step uses it. `pip`, `venv`, and `curl` already ship
+with Python or your OS.
+
+### Step 1 — check what you already have
+
+If Python prints **3.11 or higher** and git prints a version, skip straight to
+[Quickstart](#quickstart) — you're set.
+
+**macOS / Linux** (Terminal):
+
+```bash
+python3 --version     # need 3.11 or higher
+git --version
+docker --version      # optional — only for the container step
+```
+
+**Windows** (PowerShell):
+
+```powershell
+python --version      # need 3.11 or higher
+git --version
+docker --version      # optional
+```
+
+### Step 2 — install whatever is missing
+
+**macOS** — easiest via [Homebrew](https://brew.sh) (install it once with the
+one-liner on that page), then:
+
+```bash
+brew install python@3.12 git
+brew install --cask docker      # optional — then launch Docker Desktop once
+```
+
+**Windows** — use `winget` (built into Windows 10/11):
+
+```powershell
+winget install Python.Python.3.12
+winget install Git.Git
+winget install Docker.DockerDesktop     # optional — then launch Docker Desktop once
+```
+
+Prefer clicking installers? Grab [Python](https://www.python.org/downloads/)
+(**tick "Add python.exe to PATH"** in the installer),
+[Git](https://git-scm.com/download/win), and
+[Docker Desktop](https://www.docker.com/products/docker-desktop/).
+
+> After installing, **close and reopen your terminal** so the new tools land on
+> your PATH, then re-run the Step 1 checks. On macOS, `python3`/`pip3`; on
+> Windows, `python`/`pip`.
+
+---
+
+## Quickstart
 
 All the code lives in **`studio/`** (it holds `agent.py` and every kit file) —
 run every command below from there.
 
 ```bash
 git clone https://github.com/takshit12/langgraph-advanced.git
-cd langgraph-advanced/studio          # ← all commands run from here
+cd langgraph-advanced/studio
+```
 
-python -m venv .venv && source .venv/bin/activate
+Create and activate a virtual environment:
+
+**macOS / Linux:**
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+```
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+> If PowerShell blocks the activate script, run
+> `Set-ExecutionPolicy -Scope Process RemoteSigned` first (affects only the
+> current window), or use Command Prompt: `.venv\Scripts\activate.bat`.
+
+Then install the dependencies and create your `.env`:
+
+```bash
 pip install -r requirements.txt
-cp .env.example .env                   # then paste your Langfuse keys into .env
+cp .env.example .env          # Windows: copy .env.example .env
 ```
 
 Your `.env` needs a Langfuse public/secret pair and the **region-matched** host
@@ -85,6 +160,10 @@ server — no LangGraph Platform or LangSmith runtime required. `app.py` imports
 ```bash
 uvicorn app:app --reload --port 8000        # then open http://127.0.0.1:8000/docs
 ```
+
+> **Windows:** the multi-line `curl` snippets below use bash line-continuations
+> (`\`). Run them in **Git Bash**, or skip them and use the interactive Swagger UI
+> at <http://127.0.0.1:8000/docs> → **Try it out**.
 
 ```bash
 curl -s localhost:8000/health
