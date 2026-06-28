@@ -153,6 +153,17 @@ Your `.env` needs a Langfuse public/secret pair and the **region-matched** host
 (see `.env.example`). OpenRouter is optional — without it, the `question` branch
 returns a deterministic offline answer so every demo still works.
 
+### Verify it works (30 seconds, no keys needed)
+
+```bash
+python agent.py        # 3 lines of classified output
+python evaluate.py     # → intent 6/14 (42.9%), sentiment 11/14 (78.6%)
+```
+
+Those two need **no API keys** and exercise the whole agent + evaluation path — if
+they print the numbers above, your install is healthy. Everything below (deploy,
+tracing, experiments) builds on that.
+
 ---
 
 ## 1 · Deploy — run the agent as an HTTP service
@@ -219,6 +230,25 @@ and latency per node.
 > SDK, so the callback handler traces the *node* but not the LLM *generation*
 > inside it. To capture the model call too, swap the import inside `question_node`
 > to `from langfuse.openai import OpenAI` — that wrapper is auto-instrumented.
+
+### Talk to it live (`chat.py`)
+
+For the interactive version, run a chat loop where **every message becomes a trace
+you watch appear in real time**:
+
+```bash
+python chat.py     # type a message; a trace titled `chat: …` lands in Langfuse
+```
+
+Keep the Langfuse **Tracing** tab open next to the terminal — each message pushes
+its own trace within a second or two. (No keys? It still runs, just untraced.)
+
+### The deployed API traces too
+
+`app.py` attaches the same handler when keys are present, so real HTTP calls also
+show up in Langfuse (named `api:/chat`). Hit `/chat` from the Swagger UI at `/docs`
+and watch the trace land — *deploy and observe become one thing*. The lean
+container ships without langfuse and simply runs untraced.
 
 ---
 

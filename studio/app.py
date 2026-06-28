@@ -30,7 +30,7 @@ app = FastAPI(
 )
 
 
-# --- Optional Langfuse tracing -----------------------------------------------
+# ---  Langfuse tracing -----------------------------------------------
 # Observability is still ADDITIVE here: if Langfuse keys are present we attach a
 # callback handler so every API call becomes a trace; if not (or langfuse isn't
 # installed, e.g. in the lean container), we run untraced. Lazy import keeps the
