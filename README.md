@@ -279,6 +279,8 @@ Everything lives in `studio/` — `cd` there to run any command:
 ```
 langgraph-advanced/
 ├── README.md          ← repo overview (this file)
+├── COMMANDS.md        ← run everything from scratch, top to bottom (verify a fresh clone)
+├── explainers/        ← 3 plain-English walk-throughs of the code (written to read aloud)
 └── studio/            ← the kit; the langgraph.json app root
     ├── agent.py       ← run all commands from here
     └── …
@@ -297,6 +299,10 @@ langgraph-advanced/
 | `golden_dataset.jsonl` | 14 labeled examples |
 | `evaluate.py` | dependency-free eval harness |
 | `langfuse_experiment.py` | same eval, pushed to Langfuse |
+
+📖 New here? Run **[`COMMANDS.md`](COMMANDS.md)** to confirm everything works from
+a fresh clone, then read the three short, read-aloud walk-throughs in
+**[`explainers/`](explainers/)**.
 
 ---
 
