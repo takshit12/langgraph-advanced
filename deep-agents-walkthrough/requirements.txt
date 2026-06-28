@@ -5,6 +5,9 @@
 # The macOS system `python3` is often 3.9 — build your venv with python3.11+.
 
 langgraph>=1.0,<2.0
+# The `langgraph` CLI (e.g. `langgraph dev`) ships in a separate package, NOT in
+# the langgraph library above. The [inmem] extra is required for the dev server.
+langgraph-cli[inmem]>=0.2
 openai>=1.40
 fastapi>=0.115
 uvicorn[standard]>=0.30
